@@ -1,0 +1,4 @@
+# Permisos por tópico. El usuario de la app SOLO puede usar el tópico de alertas de SU comunidad.
+user app_comunidad
+topic readwrite comunidades/comunidad01/alertas
+# Cualquier otro tópico queda denegado por defecto (principio de mínimo privilegio).

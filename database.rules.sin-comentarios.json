@@ -1,0 +1,110 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid && !data.exists()",
+        ".validate": "newData.hasChildren(['name','unit','email','role','communityId','createdAt'])",
+        "name": {
+          ".write": "auth != null && auth.uid === $uid",
+          ".validate": "newData.isString() && newData.val().length >= 2 && newData.val().length <= 40"
+        },
+        "unit": { ".validate": "newData.isString() && newData.val().matches(/^[0-9A-Za-z]{1,8}$/)" },
+        "email": { ".validate": "newData.isString() && newData.val().length <= 120" },
+        "role": { ".validate": "newData.val() === 'vecino'" },
+        "communityId": { ".validate": "newData.val() === 'comunidad01'" },
+        "createdAt": { ".validate": "newData.val() === now" },
+        "$other": { ".validate": false }
+      }
+    },
+
+    "chat": {
+      "$c": {
+        "messages": {
+          ".read": "auth != null && root.child('users').child(auth.uid).child('communityId').val() === $c",
+          ".indexOn": ["timestamp"],
+          "$mid": {
+            ".write": "auth != null && !data.exists() && root.child('users').child(auth.uid).child('communityId').val() === $c",
+            ".validate": "newData.hasChildren(['uid','name','unit','text','timestamp']) && newData.child('uid').val() === auth.uid && newData.child('name').val() === root.child('users').child(auth.uid).child('name').val() && newData.child('unit').val() === root.child('users').child(auth.uid).child('unit').val()",
+            "uid": { ".validate": "newData.isString()" },
+            "name": { ".validate": "newData.isString()" },
+            "unit": { ".validate": "newData.isString()" },
+            "text": { ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 500" },
+            "timestamp": { ".validate": "newData.val() === now" },
+            "$other": { ".validate": false }
+          }
+        }
+      }
+    },
+
+    "announcements": {
+      "$c": {
+        ".read": "auth != null && root.child('users').child(auth.uid).child('communityId').val() === $c",
+        "$id": {
+          ".write": "auth != null && !data.exists() && root.child('users').child(auth.uid).child('role').val() === 'admin'",
+          ".validate": "newData.hasChildren(['title','body','authorUid','authorName','timestamp']) && newData.child('authorUid').val() === auth.uid",
+          "title": { ".validate": "newData.isString() && newData.val().length >= 3 && newData.val().length <= 100" },
+          "body": { ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 2000" },
+          "authorUid": { ".validate": "newData.isString()" },
+          "authorName": { ".validate": "newData.isString() && newData.val().length <= 40" },
+          "timestamp": { ".validate": "newData.val() === now" },
+          "$other": { ".validate": false }
+        }
+      }
+    },
+
+    "products": {
+      "$c": {
+        ".read": "auth != null && root.child('users').child(auth.uid).child('communityId').val() === $c",
+        "$pid": {
+          ".write": "auth != null && !data.exists() && root.child('users').child(auth.uid).child('communityId').val() === $c && newData.child('sellerUid').val() === auth.uid && newData.child('status').val() === 'available'",
+          ".validate": "newData.hasChildren(['name','price','category','sellerUid','sellerName','unit','status','timestamp']) && newData.child('sellerName').val() === root.child('users').child(auth.uid).child('name').val() && newData.child('unit').val() === root.child('users').child(auth.uid).child('unit').val()",
+          "name": { ".validate": "newData.isString() && newData.val().length >= 3 && newData.val().length <= 60" },
+          "price": { ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() <= 100000000" },
+          "category": { ".validate": "newData.val() === 'Alimentos' || newData.val() === 'Hogar' || newData.val() === 'Servicios' || newData.val() === 'Otros'" },
+          "description": { ".validate": "newData.isString() && newData.val().length <= 300" },
+          "sellerUid": { ".validate": "newData.isString()" },
+          "sellerName": { ".validate": "newData.isString()" },
+          "unit": { ".validate": "newData.isString() && newData.val().length <= 8" },
+          "status": {
+            ".write": "auth != null && data.parent().child('sellerUid').val() === auth.uid",
+            ".validate": "newData.val() === 'available' || newData.val() === 'sold'"
+          },
+          "timestamp": { ".validate": "newData.val() === now" },
+          "$other": { ".validate": false }
+        }
+      }
+    },
+
+    "alerts": {
+      "$c": {
+        ".read": "auth != null && root.child('users').child(auth.uid).child('communityId').val() === $c",
+        ".indexOn": ["timestamp"],
+        "$aid": {
+          ".write": "auth != null && !data.exists() && root.child('users').child(auth.uid).child('communityId').val() === $c && newData.child('userId').val() === auth.uid && newData.child('status').val() === 'active'",
+          ".validate": "newData.hasChildren(['id','communityId','userId','userName','unit','timestamp','status']) && newData.child('id').val() === $aid && newData.child('communityId').val() === $c",
+          "id": { ".validate": "newData.isString()" },
+          "communityId": { ".validate": "newData.isString()" },
+          "userId": { ".validate": "newData.isString()" },
+          "userName": { ".validate": "newData.val() === root.child('users').child(auth.uid).child('name').val() || root.child('users').child(auth.uid).child('role').val() === 'admin'" },
+          "unit": { ".validate": "newData.isString() && newData.val().length <= 8" },
+          "timestamp": { ".validate": "newData.isNumber() && newData.val() > now - 600000 && newData.val() < now + 600000" },
+          "status": {
+            ".write": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'admin'",
+            ".validate": "newData.val() === 'active' || newData.val() === 'attended' || newData.val() === 'closed'"
+          },
+          "acks": {
+            "$uid": {
+              ".write": "auth != null && auth.uid === $uid",
+              ".validate": "newData.val() === true"
+            }
+          },
+          "$other": { ".validate": false }
+        }
+      }
+    }
+  }
+}
