@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Comunidad Conectada</string>
+    <string name="tab_chat">Chat</string>
+    <string name="tab_products">Ventas</string>
+    <string name="tab_announcements">Anuncios</string>
+    <string name="tab_alerts">Alertas</string>
+    <string name="tab_profile">Perfil</string>
+    <string name="alarm_hold">MANTÉN\nPRESIONADO</string>
+    <string name="alarm_hint">Mantén presionado 2 segundos para enviar una alerta</string>
+</resources>

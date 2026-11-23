@@ -1,0 +1,74 @@
+plugins {
+    id 'com.android.application'
+    id 'com.google.gms.google-services'
+}
+
+// Credenciales del broker MQTT: se leen de local.properties (NO versionado)
+def localProps = new Properties()
+def lpFile = rootProject.file("local.properties")
+if (lpFile.exists()) { lpFile.withInputStream { localProps.load(it) } }
+def prop = { String k, String d -> localProps.getProperty(k, d) }
+
+android {
+    namespace 'com.comunidadconectada.app'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.comunidadconectada.app"
+        minSdk 26
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "COMMUNITY_ID", "\"${prop('COMMUNITY_ID', 'comunidad01')}\""
+        buildConfigField "String", "MQTT_HOST", "\"${prop('MQTT_HOST', '10.0.2.2')}\""
+        buildConfigField "int", "MQTT_PORT", prop('MQTT_PORT', '8883')
+        buildConfigField "boolean", "MQTT_TLS", prop('MQTT_TLS', 'true')
+        buildConfigField "String", "MQTT_USER", "\"${prop('MQTT_USER', '')}\""
+        buildConfigField "String", "MQTT_PASS", "\"${prop('MQTT_PASS', '')}\""
+    }
+    buildTypes { release { minifyEnabled false } }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    buildFeatures { buildConfig true }
+    packaging {
+        resources {
+            excludes += ['META-INF/INDEX.LIST', 'META-INF/DEPENDENCIES', 'META-INF/LICENSE*', 'META-INF/NOTICE*']
+        }
+    }
+    testOptions { unitTests.returnDefaultValues = true }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    implementation 'androidx.lifecycle:lifecycle-livedata:2.8.7'
+    implementation 'androidx.core:core:1.15.0'
+
+    implementation platform('com.google.firebase:firebase-bom:33.7.0')
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-database'
+    implementation 'com.google.firebase:firebase-messaging'
+
+    // Inicio de sesión con Google (bonificación)
+    implementation 'androidx.credentials:credentials:1.3.0'
+    implementation 'androidx.credentials:credentials-play-services-auth:1.3.0'
+    implementation 'com.google.android.libraries.identity.googleid:googleid:1.1.1'
+
+    // MQTT: fork actualizado de Eclipse Paho para Android (el de la guía del curso)
+    implementation 'com.github.hannesa2:paho.mqtt.android:3.3.5'
+
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:5.14.2'
+    testImplementation 'org.json:json:20240303'
+
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test:rules:1.6.1'
+    androidTestImplementation 'androidx.test:core:1.6.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+}

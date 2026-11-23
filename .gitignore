@@ -1,0 +1,19 @@
+*.iml
+.gradle/
+/local.properties
+/.idea/
+.DS_Store
+/build/
+/app/build/
+/captures/
+.cxx/
+# Credenciales: NUNCA al repositorio
+app/google-services.json
+*.jks
+*.keystore
+service-account*.json
+broker/passwd
+broker/certs/
+node_modules/
+firebase-debug.log
+ui-debug.log

@@ -1,0 +1,10 @@
+## Copia como local.properties (está en .gitignore) y completa tus datos.
+sdk.dir=/RUTA/A/Android/Sdk
+COMMUNITY_ID=comunidad01
+# --- Broker MQTT (EMQX Cloud: host tipo xxxx.ala.us-east-1.emqxsl.com, puerto 8883, TLS) ---
+MQTT_HOST=tu-deployment.ala.us-east-1.emqxsl.com
+MQTT_PORT=8883
+MQTT_TLS=true
+MQTT_USER=app_comunidad
+MQTT_PASS=cambia-esta-clave
+# Broker local desde el emulador (Mosquitto en Docker): MQTT_HOST=10.0.2.2  MQTT_PORT=1883  MQTT_TLS=false
