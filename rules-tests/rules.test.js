@@ -8,7 +8,7 @@ const { ref, set, get, update, serverTimestamp } = require("firebase/database");
 const rules = fs.readFileSync(__dirname + "/../database.rules.json", "utf8");
 let env;
 const C = "comunidad01";
-const profile = (name, unit, role = "vecino") => ({ name, unit, email: name + "@x.cl", role, communityId: C, createdAt: Date.now() });
+const profile = (name, unit, role = "vecino") => ({ name, unit, email: name + "@x.cl", role, communityId: C, createdAt: serverTimestamp() });
 
 before(async () => {
   env = await initializeTestEnvironment({ projectId: "demo-comunidad", database: { rules, host: "127.0.0.1", port: 9000 } });

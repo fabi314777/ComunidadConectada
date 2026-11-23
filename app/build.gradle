@@ -11,7 +11,7 @@ def prop = { String k, String d -> localProps.getProperty(k, d) }
 
 android {
     namespace 'com.comunidadconectada.app'
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.comunidadconectada.app"
@@ -61,7 +61,7 @@ dependencies {
     implementation 'com.google.android.libraries.identity.googleid:googleid:1.1.1'
 
     // MQTT: fork actualizado de Eclipse Paho para Android (el de la guía del curso)
-    implementation 'com.github.hannesa2:paho.mqtt.android:3.3.5'
+    implementation 'com.github.hannesa2:paho.mqtt.android:4.4.2'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:5.14.2'
