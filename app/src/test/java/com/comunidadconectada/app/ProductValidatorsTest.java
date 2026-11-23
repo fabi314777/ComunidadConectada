@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import com.comunidadconectada.app.util.Validators;
 import org.junit.Test;
 
-/** UT-25..UT-28: validación de campos de ventas. */
+/** UT-19..UT-22: validación de campos de ventas. */
 public class ProductValidatorsTest {
     @Test public void nombreDeProducto() {
         assertNull(Validators.productName("Bicicleta aro 26"));

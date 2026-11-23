@@ -10,7 +10,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-/** UT-19..UT-23: activación de alarma, sin conexión, reintento y cooldown (dobles de prueba manuales). */
+/** UT-23..UT-27: activación de alarma, sin conexión, reintento y cooldown. */
 public class AlertDispatcherTest {
 
     static class FakeTransport implements AlertTransport {

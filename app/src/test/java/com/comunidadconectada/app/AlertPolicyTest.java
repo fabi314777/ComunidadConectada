@@ -7,7 +7,7 @@ import com.comunidadconectada.app.model.CommunityAlert;
 import com.comunidadconectada.app.util.DuplicateDetector;
 import org.junit.Test;
 
-/** UT-15..UT-18: política de recepción (duplicados, alertas antiguas, otra comunidad). */
+/** UT-11..UT-14: política de recepción (duplicados, alertas antiguas, otra comunidad). */
 public class AlertPolicyTest {
     private static final long NOW = 1_000_000L, MAX = 300_000L;
     private CommunityAlert alert(String id, String comm, long ts) {

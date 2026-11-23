@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import com.comunidadconectada.app.util.DuplicateDetector;
 import org.junit.Test;
 
-/** UT-07..UT-09: detección de duplicados (caso: recepción repetida del mismo evento MQTT). */
+/** UT-08..UT-10: detección de duplicados (recepción repetida del mismo evento MQTT). */
 public class DuplicateDetectorTest {
     @Test public void mismoId_soloSeAceptaUnaVez() {
         DuplicateDetector d = new DuplicateDetector(10);

@@ -8,7 +8,7 @@ import com.comunidadconectada.app.model.CommunityAlert;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
-/** UT-24 (Mockito): verifica la INTERACCIÓN con las dependencias simuladas. Se ejecuta en Android Studio. */
+/** UT-28 (Mockito): verifica la INTERACCIÓN con las dependencias simuladas. Se ejecuta en Android Studio. */
 public class AlertDispatcherMockitoTest {
     @Test public void publicaUnaVez_y_guardaSoloTrasConfirmacion() {
         AlertTransport transport = mock(AlertTransport.class);

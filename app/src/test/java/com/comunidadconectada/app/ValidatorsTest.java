@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import com.comunidadconectada.app.util.Validators;
 import org.junit.Test;
 
-/** UT-01..UT-06: validación del registro (casos de aceptación: campos vacíos y vivienda 311A). */
+/** UT-01..UT-07: validación del registro (campos vacíos, vivienda 311A, correo, clave, nombre, mensajes). */
 public class ValidatorsTest {
     @Test public void camposVacios_devuelvenError() {
         assertNotNull(Validators.name(""));

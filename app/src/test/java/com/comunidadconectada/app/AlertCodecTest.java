@@ -7,7 +7,7 @@ import com.comunidadconectada.app.alert.AlertFactory;
 import com.comunidadconectada.app.model.CommunityAlert;
 import org.junit.Test;
 
-/** UT-10..UT-14: generación y (de)serialización de alertas. */
+/** UT-15..UT-18: generación y (de)serialización de alertas. */
 public class AlertCodecTest {
     @Test public void generaIdUnico() {
         CommunityAlert a = AlertFactory.create("u1", "Profe Benja", "311A", "comunidad01", 1000L);
