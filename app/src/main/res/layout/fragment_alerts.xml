@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
+    <FrameLayout android:layout_width="190dp" android:layout_height="190dp"
+        android:layout_gravity="center_horizontal" android:layout_marginTop="12dp">
+        <TextView android:id="@+id/btn_alarm" android:layout_width="170dp" android:layout_height="170dp"
+            android:layout_gravity="center" android:background="@drawable/bg_alarm_button"
+            android:contentDescription="Botón de alarma. Mantén presionado dos segundos para avisar a los vecinos"
+            android:gravity="center" android:text="@string/alarm_hold"
+            android:textColor="@color/white" android:textSize="16sp" android:textStyle="bold" />
+        <com.google.android.material.progressindicator.CircularProgressIndicator android:id="@+id/progress_hold"
+            android:layout_width="190dp" android:layout_height="190dp" android:max="100" android:progress="0"
+            app:indicatorColor="@color/brand_dark" app:indicatorSize="190dp" app:trackThickness="8dp" />
+    </FrameLayout>
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:gravity="center" android:padding="4dp" android:text="@string/alarm_hint" android:textSize="12sp" />
+    <TextView android:id="@+id/tv_send_status" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:gravity="center" android:paddingStart="16dp" android:paddingEnd="16dp"
+        android:textStyle="bold" android:visibility="gone" />
+    <Button android:id="@+id/btn_retry_send" android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" android:text="Reintentar envío" android:visibility="gone" />
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="12dp"
+        android:text="Historial de alertas" android:textColor="@color/brand" android:textStyle="bold" />
+    <FrameLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/recycler" android:layout_width="match_parent"
+            android:layout_height="match_parent" android:clipToPadding="false" android:paddingStart="8dp" android:paddingEnd="8dp" />
+        <TextView android:id="@+id/tv_empty" android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_gravity="center" android:text="Sin alertas registradas." android:visibility="gone" />
+    </FrameLayout>
+</LinearLayout>
